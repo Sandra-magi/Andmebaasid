@@ -1,112 +1,179 @@
 ## Andmebaasid sandra magi portfoolio Logitpe24
 
-Andmebaasidega seotud sql kood ja konspektid
+Teemad
+- [SELECT laused](select.md)
+- [Kasutaja loomine SQL Serveris](kasutaja.md)
+- [Primaar- ja välisvõtmed](keys.md)
+- [Stored Procedures](protseduurid.md)
+- [Triggerid](trigerid.md)
+- [Enesetestid](Enesetestid_smlogitpe24.docx)
+- [vaade](vaade.md)
 
-Select laused | Kasutaja loomine SQL serveris | Protseduurid | Küsimused/enesetestid | Triggerid | Vaade | Kodutöö |
 
-    SQL - structured Query Language - struktureeritud päringukeel
+SQL (Structured Query Language) on relatsiooniliste andmebaaside päringukeel.
 
-    DDl - Data Definition Language -andmebaasi struktuuri loomiseks - CREATE, ALTER
+DDL – Data Definition Language
 
-    DML - Data Manipulation Language -admete lisamine ja uuendamine tabelis - INSERT, UPDATE, DELETE
-    Sisukord
-        Andmebaasihaldusüsteemid
-        Põhimõisted
-        Andmetüübid
-        Piirangud
-        Seosed
+Andmebaasi struktuuri loomiseks ja muutmiseks kasutatavad käsud:
 
-Andmebaasihaldusüsteemid
+CREATE
+ALTER
+DROP
+DML – Data Manipulation Language
 
-    SQL Server Management Stuudio (SQL Serveri haldamine) {DE58127B-02A4-45B1-AE15-2C28F9AC2FE8}
+Andmete lisamiseks, muutmiseks ja kustutamiseks kasutatavad käsud:
 
-    XAMPP -phpmyAdmin (mariaDB andmebaas) -vabavara
-    Põhimõisted
-
-Andmebaas - struktueeritud admete kogum
-
-    Tabel - olem (entity)
-
-    veerg - väli (field)
-
-    rida - kirja (record)
-
-    primaarne võti -PK-Primary Key - veerg (tavaliselt nimiga id) unikaalse identifikaatooriga mis eristab iga kirjet
-
-    Välisvõti (võõrvõti) -FK Foreign Key - veerg, mis loob seose teise tabeli primaarvõtmega
-    Andmetüübid
-        INT, float, decimal(6,2) - numbrilised
-        varchar(50), char(6) -tekst/sümboolid
-        boolean, bool, bit -loogiline tüüp
-        date, time, datetime - kuupäeva
-
+INSERT
+UPDATE
+DELETE
+Sisukord
+Andmebaasihaldussüsteemid
+Põhimõisted
+Andmetüübid
 Piirangud
-
-1. CHECK
-2. PRIMARY KEY
-3. FOREIGN KEY
-4. Not null
-5. UNIQUE
-
 Seosed
+Stored Procedures
+Andmebaasihaldussüsteemid
+SQL Server Management Studio (SSMS)
 
-    üks - ühele (nt mees --naine)
-    üks - mitmele (nt õpilane käib erinevates õppeainetes) {78702CBC-6009-46D8-972D-CE6510BDBFFD}
-    mitu -mitmele (nt õpilane - õpetaja
+Microsoft SQL Serveri andmebaaside haldamise keskkond.
 
-Stored procedure
+XAMPP / phpMyAdmin
 
-Salvestatud protseduurid - sama mis on funktsioonid programeerimises - mingi tegevus(ed), mida saab automaatselt teha (Insert, Select, Update, Delete)
+Vabavaraline keskkond MariaDB ja MySQL andmebaaside haldamiseks.
 
--- Proceduur, mis täidab tabeli
-Create Procedure lisakatagooria
-@nimi varchar(15)
-As
-Begin
-	Insert into Category
-	values (@nimi);
-	select * from Category;
-end
---kutse
-Exec lisakatagooria 'test'
+Põhimõisted
+Andmebaas (Database)
 
---Proceduur, mis kustutab tabelist id järgi
-Create procedure kustutaIDJargi
-@id int
+Struktureeritud andmete kogum.
+
+Tabel (Table)
+
+Andmebaasi objekt, kuhu salvestatakse andmed.
+
+Veerg (Column / Field)
+
+Tabeli väli, mis kirjeldab andmeelementi.
+
+Rida (Row / Record)
+
+Üks kirje tabelis.
+
+Primaarvõti (Primary Key, PK)
+
+Veerg, mis sisaldab unikaalset identifikaatorit iga kirje jaoks.
+
+Välisvõti (Foreign Key, FK)
+
+Veerg, mis loob seose teise tabeli primaarvõtmega.
+
+Andmetüübid
+Numbrilised andmetüübid
+INT
+FLOAT
+DECIMAL(6,2)
+Tekstiandmetüübid
+VARCHAR(50)
+CHAR(6)
+Loogilised andmetüübid
+BOOLEAN
+BOOL
+BIT
+Kuupäeva- ja kellaajatüübid
+DATE
+TIME
+DATETIME
+Piirangud (Constraints)
+PRIMARY KEY
+FOREIGN KEY
+UNIQUE
+NOT NULL
+CHECK
+Seosed
+Üks ühele (1:1)
+
+Näide:
+
+inimene ↔ pass
+Üks mitmele (1)
+
+Näide:
+
+õpetaja ↔ õpilased
+Mitu mitmele (N)
+
+Näide:
+
+õpilane ↔ õppeained
+Stored Procedures
+
+Salvestatud protseduurid (Stored Procedures) on andmebaasi objektid, mis võimaldavad SQL-käske taaskasutada ja automatiseerida.
+
+Neid kasutatakse näiteks:
+
+andmete lisamiseks
+andmete otsimiseks
+andmete muutmiseks
+andmete kustutamiseks
+Uue kategooria lisamine
+CREATE PROCEDURE lisaKategooria
+    @nimi VARCHAR(15)
 AS
-Begin
-	SELECT * from Category;
-	Delete from Category where category_id=@id;
-	Select * from Category
-End
--- kutse
-EXEC kustutaIDJargi 3 
+BEGIN
+    INSERT INTO Category
+    VALUES (@nimi);
 
---otsing
---protseduur mis otsib kõik kategooriad sisestatud 1 tähe
-Create Procedure otsing1taht
-@taht char(1)
+    SELECT * FROM Category;
+END
+
+Kasutamine:
+
+EXEC lisaKategooria 'test'
+Kategooria kustutamine ID järgi
+CREATE PROCEDURE kustutaIDJargi
+    @id INT
 AS
-Begin
-	Select Category_Name from Category
-	Where Category_Name like @taht + '%';
-ENd
---kutse
-Select * from Category
-Exec otsing1taht 'j'
+BEGIN
+    SELECT * FROM Category;
 
---Prodceduur, mis uuendab nimed sisestatud id järgi
-Create procedure uuendaKategooria
-@id int, 
-@uuendarudNimi varchar(20)
-As 
-Begin
-	Select * from Category;
-	Update Category set Category_Name=@uuendarudNimi
-	Where category_id=@id;
-end
+    DELETE FROM Category
+    WHERE category_id = @id;
 
---kutse
-exec uuendaKategooria 4, 'jope'  
+    SELECT * FROM Category;
+END
 
+Kasutamine:
+
+EXEC kustutaIDJargi 3
+Otsing esimese tähe järgi
+CREATE PROCEDURE otsing1Taht
+    @taht CHAR(1)
+AS
+BEGIN
+    SELECT Category_Name
+    FROM Category
+    WHERE Category_Name LIKE @taht + '%';
+END
+
+Kasutamine:
+
+EXEC otsing1Taht 'j'
+Kategooria nime uuendamine
+CREATE PROCEDURE uuendaKategooria
+    @id INT,
+    @uuendatudNimi VARCHAR(20)
+AS
+BEGIN
+    SELECT * FROM Category;
+
+    UPDATE Category
+    SET Category_Name = @uuendatudNimi
+    WHERE category_id = @id;
+
+    SELECT * FROM Category;
+END
+
+Kasutamine:
+
+EXEC uuendaKategooria 4, 'jope'
 
