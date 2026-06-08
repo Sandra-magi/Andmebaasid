@@ -1,41 +1,112 @@
-# Andmebaasid
+## Andmebaasid sandra magi portfoolio Logitpe24
 
-andmebaaside õppeaine portfoolio.
+Andmebaasidega seotud sql kood ja konspektid
 
-## Sisukord
+Select laused | Kasutaja loomine SQL serveris | Protseduurid | Küsimused/enesetestid | Triggerid | Vaade | Kodutöö |
 
-* [Triggerid](trigerid.md)
-* [Select laused](select.md) |
-* [Kasutaja loomine SQL Server](kasutaja.md) |
-* [Protseduurid](protseduurid.md) |
-* [Kodutöö - Keys](keys.md)
+    SQL - structured Query Language - struktureeritud päringukeel
 
-## Teemad
+    DDl - Data Definition Language -andmebaasi struktuuri loomiseks - CREATE, ALTER
 
-### SELECT laused
+    DML - Data Manipulation Language -admete lisamine ja uuendamine tabelis - INSERT, UPDATE, DELETE
+    Sisukord
+        Andmebaasihaldusüsteemid
+        Põhimõisted
+        Andmetüübid
+        Piirangud
+        Seosed
 
-Näited SQL SELECT päringutest ja nende kasutamisest.
+Andmebaasihaldusüsteemid
 
-### Kasutaja loomine XAMPP-is
+    SQL Server Management Stuudio (SQL Serveri haldamine) {DE58127B-02A4-45B1-AE15-2C28F9AC2FE8}
 
-Kasutaja loomise juhend MySQL/XAMPP keskkonnas.
+    XAMPP -phpmyAdmin (mariaDB andmebaas) -vabavara
+    Põhimõisted
 
-### Kasutaja loomine SQL Serveris
+Andmebaas - struktueeritud admete kogum
 
-Kasutaja loomise juhend Microsoft SQL Serveris.
+    Tabel - olem (entity)
 
-### Triggerid
+    veerg - väli (field)
 
-Triggerite loomine ja kasutamine andmebaasis.
+    rida - kirja (record)
 
-### Andmebaasi võtmed (Keys)
+    primaarne võti -PK-Primary Key - veerg (tavaliselt nimiga id) unikaalse identifikaatooriga mis eristab iga kirjet
 
-Primary Key, Foreign Key, Unique Key, Composite Key, Candidate Key ja teised võtmetüübid koos näidetega.
+    Välisvõti (võõrvõti) -FK Foreign Key - veerg, mis loob seose teise tabeli primaarvõtmega
+    Andmetüübid
+        INT, float, decimal(6,2) - numbrilised
+        varchar(50), char(6) -tekst/sümboolid
+        boolean, bool, bit -loogiline tüüp
+        date, time, datetime - kuupäeva
 
-## Autor
-Sandra Mägi
-LOGITpe24
+Piirangud
 
-*Õppeaine:* Andmebaasid
+1. CHECK
+2. PRIMARY KEY
+3. FOREIGN KEY
+4. Not null
+5. UNIQUE
 
-*Aasta:* 2026
+Seosed
+
+    üks - ühele (nt mees --naine)
+    üks - mitmele (nt õpilane käib erinevates õppeainetes) {78702CBC-6009-46D8-972D-CE6510BDBFFD}
+    mitu -mitmele (nt õpilane - õpetaja
+
+Stored procedure
+
+Salvestatud protseduurid - sama mis on funktsioonid programeerimises - mingi tegevus(ed), mida saab automaatselt teha (Insert, Select, Update, Delete)
+
+-- Proceduur, mis täidab tabeli
+Create Procedure lisakatagooria
+@nimi varchar(15)
+As
+Begin
+	Insert into Category
+	values (@nimi);
+	select * from Category;
+end
+--kutse
+Exec lisakatagooria 'test'
+
+--Proceduur, mis kustutab tabelist id järgi
+Create procedure kustutaIDJargi
+@id int
+AS
+Begin
+	SELECT * from Category;
+	Delete from Category where category_id=@id;
+	Select * from Category
+End
+-- kutse
+EXEC kustutaIDJargi 3 
+
+--otsing
+--protseduur mis otsib kõik kategooriad sisestatud 1 tähe
+Create Procedure otsing1taht
+@taht char(1)
+AS
+Begin
+	Select Category_Name from Category
+	Where Category_Name like @taht + '%';
+ENd
+--kutse
+Select * from Category
+Exec otsing1taht 'j'
+
+--Prodceduur, mis uuendab nimed sisestatud id järgi
+Create procedure uuendaKategooria
+@id int, 
+@uuendarudNimi varchar(20)
+As 
+Begin
+	Select * from Category;
+	Update Category set Category_Name=@uuendarudNimi
+	Where category_id=@id;
+end
+
+--kutse
+exec uuendaKategooria 4, 'jope'  
+
+
