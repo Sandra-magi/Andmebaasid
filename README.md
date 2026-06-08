@@ -2,9 +2,9 @@
 
 Teemad
 - [SELECT laused](select.md)
-- [Kasutaja loomine SQL Serveris](kasutaja.md)
-- [Primaar- ja välisvõtmed](keys.md)
-- [Stored Procedures](protseduurid.md)
+- [kasutaja](kasutaja.md)
+- [võtmed](keys.md)
+- [Storedprocedures](protseduurid.md)
 - [Triggerid](trigerid.md)
 - [Enesetestid](Enesetestid_smlogitpe24.docx)
 - [vaade](vaade.md)
