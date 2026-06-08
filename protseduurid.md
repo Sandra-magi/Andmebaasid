@@ -1,4 +1,4 @@
-SQL Protseduurid (Stored Procedures)
+## SQL Protseduurid (Stored Procedures)
 Select laused | Protseduurid | vaade | Kasutaja | keys | küsimused | Triggerid
 
 Mis on protseduur?
