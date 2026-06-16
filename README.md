@@ -3,7 +3,7 @@
 Teemad
 - [SELECT laused](select.md)
 - [kasutaja](kasutaja.md)
-- [võtmed](keys.md)
+- [keys](keys.md)
 - [Storedprocedures](protseduurid.md)
 - [Triggerid](trigerid.md)
 - [Enesetestid](Enesetestid_smlogitpe24.docx)
