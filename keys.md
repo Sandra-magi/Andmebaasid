@@ -1,5 +1,6 @@
-Andmebaasi võtmed (Keys)
-Select laused | Protseduurid | vaade | Kasutaja | keys | küsimused | Triggerid
+## KEYS
+
+[Select laused](select.md) | [Kasutaja loomine XAMPP-is JA SQL Serveris](kasutaja.md) | [Triggerid](trigerid.md) | [Kodutöö - Keys](keys.md)  | [stored procedure](protseduurid.md) | [Enesetestid](Enesetestid_smlogitpe24.docx) | [Triggerid](vaade.md)
 
 Andmebaasi võtmed on vahendid, millega tuvastatakse ridu tabelites, luuakse seoseid tabelite vahel ja tagatakse andmete unikaalsus ning terviklus.
 
