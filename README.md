@@ -1,13 +1,7 @@
 ## Andmebaasid sandra magi portfoolio Logitpe24
 
-Teemad
-- [SELECT laused](select.md)
-- [kasutaja](kasutaja.md)
-- [keys](keys.md)
-- [Storedprocedures](protseduurid.md)
-- [Triggerid](trigerid.md)
-- [Enesetestid](Enesetestid_smlogitpe24.docx)
-- [vaade](vaade.md)
+[Select laused](select.md) | [Kasutaja loomine XAMPP-is JA SQL Serveris](kasutaja.md) | [Triggerid](trigerid.md) | [Kodutöö - Keys](keys.md)  | [stored procedure](protseduurid.md) | [Enesetestid](Enesetestid_smlogitpe24.docx) | [Triggerid](vaade.md)
+
 
 
 SQL (Structured Query Language) on relatsiooniliste andmebaaside päringukeel.
