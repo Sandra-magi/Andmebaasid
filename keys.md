@@ -2,6 +2,12 @@
 
 [Select laused](select.md) | [Kasutaja loomine XAMPP-is JA SQL Serveris](kasutaja.md) | [Triggerid](trigerid.md) | [Kodutöö - Keys](keys.md)  | [stored procedure](protseduurid.md) | [Enesetestid](Enesetestid_smlogitpe24.docx) | [Vaade](vaade.md)
 
+
+VOTME TOESTUSED PILTIENDA:
+<img width="326" height="782" alt="{DBFCC360-0065-4361-A63D-F2AB832246E3}" src="https://github.com/user-attachments/assets/a66da424-0c8b-4153-842c-0b3d07ce5560" />
+<img width="326" height="828" alt="{CCA35B76-8990-4BF3-AF99-471481F0139C}" src="https://github.com/user-attachments/assets/44bc7839-bd4a-482b-a27b-5f46639a9d39" />
+<img width="356" height="833" alt="{AB532F27-DCFE-4346-A3C0-25D01F02E375}" src="https://github.com/user-attachments/assets/cd02f68e-d2cf-4e4e-831d-af6280cf2b7d" />
+
 Andmebaasi võtmed on vahendid, millega tuvastatakse ridu tabelites, luuakse seoseid tabelite vahel ja tagatakse andmete unikaalsus ning terviklus.
 
 1. Primary Key (Primaarvõti)
@@ -131,7 +137,7 @@ INSERT INTO Õpilane_Kursus VALUES (2, 101);
 <img width="476" height="536" alt="image" src="https://github.com/user-attachments/assets/f7cf686f-99e6-430d-8e48-d90837edb07e" />
 
 6. Compound Key (Liitidentifikaator)
-Definitsioon: Compound Key on sarnane Composite Key-ga — koosneb mitmest veerust — kuid erinevalt Composite Key-st sisaldab vähemalt ühte Foreign Key veergu.
+Definitsioon: Compound Key on sarnane Composite Key-ga koosneb mitmest veerust — kuid erinevalt Composite Key-st sisaldab vähemalt ühte Foreign Key veergu.
 
 Milleks kasutatakse: Tabelites, kus võti on moodustatud seosveergudest (FK-dest).
 
@@ -235,3 +241,115 @@ database.guide – How to Create a Composite Primary Key in SQL Server https://d
 GeeksForGeeks – Keys in Relational Model https://www.geeksforgeeks.org/dbms/types-of-keys-in-relational-model-candidate-super-primary-alternate-and-foreign/
 GeeksForGeeks – Candidate Key in DBMS https://www.geeksforgeeks.org/dbms/candidate-key-in-dbms/
 GeeksForGeeks – SQL Alternate Key https://www.geeksforgeeks.org/sql/sql-alternate-key/
+
+
+
+TAISKOOD:
+
+CREATE DATABASE KooliDB1;
+
+USE KooliDB1;
+
+
+CREATE TABLE Klassid (
+    klass_id INT PRIMARY KEY,
+    klassi_nimi VARCHAR(10)
+);
+
+INSERT INTO Klassid VALUES (1, '10A');
+INSERT INTO Klassid VALUES (2, '10B');
+
+CREATE TABLE Õpilased (
+    õpilane_id INT PRIMARY KEY,
+    eesnimi VARCHAR(50),
+    perenimi VARCHAR(50),
+    klass_id INT,
+    FOREIGN KEY (klass_id) REFERENCES Klassid(klass_id)
+);
+
+INSERT INTO Õpilased VALUES (1, 'Mari', 'Mägi', 1);
+INSERT INTO Õpilased VALUES (2, 'Jaan', 'Kask', 2);
+
+CREATE TABLE Kasutajad (
+    kasutaja_id INT PRIMARY KEY,
+    eesnimi VARCHAR(50),
+    email VARCHAR(100) UNIQUE
+);
+
+INSERT INTO Kasutajad VALUES (1, 'Mari', 'mari@kool.ee');
+INSERT INTO Kasutajad VALUES (2, 'Jaan', 'jaan@kool.ee');
+
+CREATE TABLE Tooted (
+    toode_id INT PRIMARY KEY,
+    toode_nimi VARCHAR(100),
+    hind DECIMAL(10,2)
+);
+
+INSERT INTO Tooted VALUES (1, 'Pliiats', 0.99);
+INSERT INTO Tooted VALUES (2, 'Vihik', 1.49);
+
+CREATE TABLE Kursused (
+    kursus_id INT PRIMARY KEY,
+    kursuse_nimi VARCHAR(100)
+);
+
+INSERT INTO Kursused VALUES (101, 'Matemaatika');
+INSERT INTO Kursused VALUES (102, 'Eesti keel');
+
+CREATE TABLE Õpilane_Kursus (
+    õpilane_id INT,
+    kursus_id INT,
+    PRIMARY KEY (õpilane_id, kursus_id),
+    FOREIGN KEY (õpilane_id) REFERENCES Õpilased(õpilane_id),
+    FOREIGN KEY (kursus_id) REFERENCES Kursused(kursus_id)
+);
+
+INSERT INTO Õpilane_Kursus VALUES (1, 101);
+INSERT INTO Õpilane_Kursus VALUES (1, 102);
+INSERT INTO Õpilane_Kursus VALUES (2, 101);
+
+CREATE TABLE Tellimused (
+    tellimus_id INT PRIMARY KEY,
+    õpilane_id INT,
+    FOREIGN KEY (õpilane_id) REFERENCES Õpilased(õpilane_id)
+);
+
+CREATE TABLE Tellimuse_Toode (
+    tellimus_id INT,
+    toode_id INT,
+    kogus INT,
+    PRIMARY KEY (tellimus_id, toode_id),
+    FOREIGN KEY (tellimus_id) REFERENCES Tellimused(tellimus_id),
+    FOREIGN KEY (toode_id) REFERENCES Tooted(toode_id)
+);
+
+CREATE TABLE Töötajad (
+    töötaja_id INT PRIMARY KEY,
+    eesnimi VARCHAR(50),
+    perenimi VARCHAR(50),
+    isikukood CHAR(11) UNIQUE
+);
+
+CREATE TABLE Õpetajad (
+    õpetaja_id INT UNIQUE NOT NULL,
+    isikukood CHAR(11) UNIQUE NOT NULL,
+    tööemail VARCHAR(100) UNIQUE NOT NULL,
+    eesnimi VARCHAR(50),
+    perenimi VARCHAR(50)
+);
+
+CREATE TABLE Õpilased_Uus (
+    õpilane_id INT PRIMARY KEY,
+    isikukood CHAR(11) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    eesnimi VARCHAR(50),
+    perenimi VARCHAR(50)
+);
+
+INSERT INTO Õpilased_Uus VALUES (1, '50501010001', 'mari@kool.ee', 'Mari', 'Mägi');
+
+SELECT * FROM Õpilased;
+SELECT * FROM Klassid;
+SELECT * FROM Tooted;
+SELECT * FROM Kursused;
+SELECT * FROM Õpilane_Kursus;
