@@ -1,6 +1,6 @@
 ## Select laused SQL
 
-[Select laused](select.md) | [Protseduurid](Protseduur.md) | [vaade](vaade.md) | [Kasutaja](kasutaja.md) | [keys](keys.md) | 
+[Select laused](select.md) | [Kasutaja loomine XAMPP-is JA SQL Serveris](kasutaja.md) | [Triggerid](trigerid.md) | [Kodutöö - Keys](keys.md)  | [stored procedure](protseduurid.md) | [Enesetestid](Enesetestid_smlogitpe24.docx) | [Triggerid](vaade.md)
 
 
 <img width="1362" height="823" alt="image" src="https://github.com/user-attachments/assets/fa7340db-1505-4345-98a3-7da0612ee29a" />
