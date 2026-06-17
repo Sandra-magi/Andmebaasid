@@ -94,17 +94,17 @@ Seosed
 
 Näide:
 
-inimene ↔ pass
+inimene - pass
 Üks mitmele (1)
 
 Näide:
 
-õpetaja ↔ õpilased
+õpetaja - õpilased
 Mitu mitmele (N)
 
 Näide:
 
-õpilane ↔ õppeained
+õpilane - õppeained
 Stored Procedures
 
 Salvestatud protseduurid (Stored Procedures) on andmebaasi objektid, mis võimaldavad SQL-käske taaskasutada ja automatiseerida.
