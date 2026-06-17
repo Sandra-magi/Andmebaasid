@@ -4,6 +4,7 @@
 
 
 
+
 SQL (Structured Query Language) on relatsiooniliste andmebaaside päringukeel.
 
 DDL – Data Definition Language
