@@ -130,4 +130,78 @@ Vihje! UPDATE õigused parem lubada SQL käsuga
 GRANT UPDATE (movieCost, movieDir)
 ON movies
 TO Produtsent;
-    
+
+
+    -- loo andmebaas
+CREATE DATABASE MovieBase;
+
+-- vali andmebaas
+USE MovieBase;
+
+-- loo tabel movies
+CREATE TABLE movies (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    moviesNimi VARCHAR(100),
+    moviesYear INT,
+    movieDir VARCHAR(100),
+    movieCost DECIMAL(10,2)
+);
+
+-- loo tabel guest
+CREATE TABLE guest (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    name VARCHAR(100)
+);
+
+-- lisa andmed tabelisse movies
+INSERT INTO movies (moviesNimi, moviesYear, movieDir, movieCost)
+VALUES
+('Avatar', 2009, 'James Cameron', 237000000),
+('Titanic', 1997, 'James Cameron', 200000000),
+('Inception', 2010, 'Christopher Nolan', 160000000),
+('Interstellar', 2014, 'Christopher Nolan', 165000000),
+('Joker', 2019, 'Todd Phillips', 55000000),
+('Gladiator', 2000, 'Ridley Scott', 103000000),
+('Alien', 1979, 'Ridley Scott', 11000000);
+
+-- lisa andmed tabelisse guest
+INSERT INTO guest (name)
+VALUES
+('Mark'),
+('Sandra'),
+('Karl'),
+('Liis'),
+('Anna'),
+('Martin'),
+('Kati');
+
+
+CREATE LOGIN Produtsent
+WITH PASSWORD = 'director';
+
+-- loo kasutaja 
+CREATE USER Produtsent
+FOR LOGIN Produtsent;
+
+--lugemisigus tabelile movies
+GRANT SELECT ON movies TO Produtsent;
+
+-- lugemisigus tabelile guest
+GRANT SELECT ON guest TO Produtsent;
+
+--lisamisigus tabelile guest
+GRANT INSERT ON guest TO Produtsent;
+
+--  muutmisigus ainult veergudele moviedir ja moviecost
+GRANT UPDATE (movieDir, movieCost)
+ON movies
+TO Produtsent;
+
+-- privileeg, aab vaadata tabelite, vaadete, protseduuride ja teiste andmebaasi objektide definitsioone
+GRANT VIEW DEFINITION TO Produtsent;
+
+-- keela kustutamine tabelis movies
+DENY DELETE ON movies TO Produtsent;
+
+-- keela kustutamine tabelis guest
+DENY DELETE ON guest TO Produtsent;
