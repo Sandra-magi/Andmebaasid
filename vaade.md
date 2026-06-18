@@ -1,62 +1,42 @@
-SQL Protseduurid (Stored Procedures)
+vaade (view)
 
 [Select laused](select.md) | [Kasutaja loomine XAMPP-is JA SQL Serveris](kasutaja.md) | [Triggerid](trigerid.md) | [Kodutöö - Keys](keys.md)  | [stored procedure](protseduurid.md) | [Enesetestid](Enesetestid_smlogitpe24.docx) | [Vaade](vaade.md)
 
-Mis on protseduur? Protseduur (stored procedure) on eelkompileeritud SQL-lausete kogum, mis salvestatakse andmebaasi ja mida saab korduvalt käivitada. Protseduurid võtavad vastu parameetreid ja täidavad kindlaid toiminguid.
-Näide 1 – Protseduur, mis lisab reа tabelisse
+Mis on vaade? Vaade (View) on virtuaalne tabel, mis põhineb SQL-päringul. Vaade ei salvesta andmeid ise — see on nagu "akna" kaudu vaatamine pärisandmetele. Iga kord, kui vaatele viidatakse, käivitatakse taustapäring uuesti.
 
-Proceduur, mis täidab tabeli
+Vaate loomine
 
-Create Procedure lisa
-    @First_Name varchar(15)
-AS
-Begin
-    Insert into Brands
-    values (@First_Name);
-    select * from Brands;
-end
+CREATE VIEW vaate_nimi AS
+SELECT veerg1, veerg2
+FROM tabel
+WHERE tingimus;
+Vaade 1: Kõik brändid
 
-Kutse (käivitamine):
+CREATE VIEW kõik_brändid AS
+SELECT * FROM Brands;
+Kasutamine:
 
-Exec lisa 'test'
+SELECT * FROM kõik_brändid;
+Vaade 2: Brändid kategooriatega (JOIN)
 
-Selgitus:
+CREATE VIEW brändid_kategooriatega AS
+SELECT b.Brand_Name, c.Category_Name
+FROM Brands b
+JOIN Category c ON b.category_id = c.category_id;
+Kasutamine:
 
-Protseduur nimega lisa võtab ühe parameetri @First_Name (kuni 15 tähemärki) Lisab väärtuse tabelisse Brands Kuvab kogu tabeli sisu pärast lisamist Kutse: EXEC lisa 'test' — lisab nime 'test'
-Näide 2 – Protseduur, mis kustutab rea ID järgi
+SELECT * FROM brändid_kategooriatega;
+Vaade 3: Ainult N-tähega brändid
 
-Proceduur, mis kustutab tabelist id järgi
+CREATE VIEW n_brändid AS
+SELECT Brand_Name FROM Brands
+WHERE Brand_Name LIKE 'N%';
+Kasutamine:
+sqlSELECT * FROM n_brändid;
+Vaate kustutamine
 
-Create procedure kustuta
-    @id int
-AS
-Begin
-    SELECT * from Brands;
-    Delete from Brands where brand_id = @id;
-    Select * from Brands
-End
+DROP VIEW vaate_nimi;
+Vaate muutmine
 
-Kutse:
-
-EXEC kustuta 3
-
-Selgitus:
-
-Protseduur kustuta võtab täisarvu parameetri @id Kuvab tabeli enne kustutamist Kustutab rea, kus brand_id = @id Kuvab tabeli pärast kustutamist Kutse: EXEC kustuta 3 — kustutab rea, mille ID on 3
-Näide 3 – Protseduur, mis otsib nime esitähe järgi
-
-Create Procedure otsing
-    @taht char(1)
-AS
-Begin
-    Select Brand_Name from Brands
-    where Brand_Name like @taht + '%';
-End
-
-Kutse:
-
-Exec otsing 'N'
-
-Selgitus:
-
-Protseduur otsing võtab ühe tähe parameetri @taht Otsib kõik Brand_Name väärtused, mis algavad selle tähega LIKE @taht + '%' — % tähendab "ükskõik mis järgneb" Kutse: EXEC otsing 'N' — kuvab kõik brändid, mille nimi algab N-tähega
+ALTER VIEW vaate_nimi AS
+SELECT ...uus päring...;
