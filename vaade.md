@@ -38,5 +38,51 @@ Vaate kustutamine
 DROP VIEW vaate_nimi;
 Vaate muutmine
 
+kogu kood
+
+CREATE VIEW koik_brandid AS
+SELECT *
+FROM Brands;
+
+-- vaate 1 kasutamine
+SELECT *
+FROM koik_brandid;
+
+-- vaate 2 loomine - brandid kategooriatega
+CREATE VIEW brandid_kategooriatega AS
+SELECT
+    b.Brand_Name,
+    c.Category_Name
+FROM Brands b
+JOIN Category c
+ON b.category_id = c.category_id;
+
+-- vaate 2 kasutamine
+SELECT *
+FROM brandid_kategooriatega;
+
+-- vaate 3 loomine - n-tahega algavad brandid
+CREATE VIEW n_brandid AS
+SELECT Brand_Name
+FROM Brands
+WHERE Brand_Name LIKE 'N%';
+
+-- vaate 3 kasutamine
+SELECT *
+FROM n_brandid;
+
+-- vaate muutmine
+ALTER VIEW n_brandid AS
+SELECT Brand_Name
+FROM Brands
+WHERE Brand_Name LIKE 'S%';
+
+-- kontroll
+SELECT *
+FROM n_brandid;
+
+-- vaate kustutamine
+DROP VIEW n_brandid;
+
 ALTER VIEW vaate_nimi AS
 SELECT ...uus päring...;
