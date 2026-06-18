@@ -2,7 +2,7 @@ vaade (view)
 
 [Select laused](select.md) | [Kasutaja loomine XAMPP-is JA SQL Serveris](kasutaja.md) | [Triggerid](trigerid.md) | [Kodutöö - Keys](keys.md)  | [stored procedure](protseduurid.md) | [Enesetestid](Enesetestid_smlogitpe24.docx) | [Vaade](vaade.md)
 
-Mis on vaade? Vaade (View) on virtuaalne tabel, mis põhineb SQL-päringul. Vaade ei salvesta andmeid ise — see on nagu "akna" kaudu vaatamine pärisandmetele. Iga kord, kui vaatele viidatakse, käivitatakse taustapäring uuesti.
+Mis on vaade? Vaade (View) on virtuaalne tabel, mis põhineb SQL-päringul. Vaade ei salvesta andmeid ise  see on nagu "akna" kaudu vaatamine pärisandmetele. Iga kord, kui vaatele viidatakse, käivitatakse taustapäring uuesti.
 
 Vaate loomine
 
